@@ -30,22 +30,26 @@ void menu::MainMenu(city listofcities[], uint8_t &capacity) { // Displays the ma
     }
 }
 
-int DisplayOptions(city listofcities[]) { // Displays the menu after the user searched for a city.
-    std::uint8_t option;
-    std::cout << "Select one of the following options \n 1. Update City \n 2. Delete City \n 3. Calculate Distances";
-    std::cin >> option;
-    switch(option) {
-        case 1:
-            Managecity::UpdateCity(listofcities);
-        break;
-        case 2:
-            Managecity::DeleteCity(listofcities);
-        break;
-      //  case 3:
-      //      tools::CalculateDistance(city1, city2);
-      //  break;
-        default:
-            std::cout << "invalid option";
-    }
+void menu::DisplayOptions(city listofcities[], city matchedCities[], uint8_t matchedCount, uint8_t selection, uint8_t capacity) { // Displays the menu after the user searched for a city.
+    bool n = true;
+    while (n) {
+        int options;
+        cout << "---------------------------------------------\n";
+        cout << "Select one of the following options \n 1. Update City \n 2. Delete City \n 3. Calculate Distances\n";
 
+        cout << " Your city: " <<  matchedCities[selection].details[0] << " - " << matchedCities[selection].details[1] << " - " << matchedCities[selection].details[2];
+        cout << "\nEnter your option: ";
+        cin >> options;
+        if (options == 1) {
+            managecity::UpdateCity(listofcities, matchedCities, selection, capacity);
+            n = false;
+        } else if(options == 2) {
+            managecity::DeleteCity(listofcities, matchedCities, selection, capacity);
+            n = false;
+        } else if (options == 3) {
+            tools::CalculateDistance(listofcities, matchedCities, selection, capacity);
+        } else {
+            cout << "invalid option";
+        }
+    }
 }
