@@ -35,7 +35,7 @@ void menu::DisplayOptions(city listofcities[], city matchedCities[], uint8_t mat
     while (n) {
         int options;
         cout << "---------------------------------------------\n";
-        cout << "Select one of the following options \n 1. Update City \n 2. Delete City \n 3. Calculate Distances\n";
+        cout << "Select one of the following options \n 1. Update City \n 2. Delete City \n 3. Calculate Distances\n 0. Return to menu\n";
 
         cout << " Your city: " <<  matchedCities[selection].details[0] << " - " << matchedCities[selection].details[1] << " - " << matchedCities[selection].details[2];
         cout << "\nEnter your option: ";
@@ -48,6 +48,9 @@ void menu::DisplayOptions(city listofcities[], city matchedCities[], uint8_t mat
             n = false;
         } else if (options == 3) {
             tools::CalculateDistance(listofcities, matchedCities, selection, capacity);
+            n = false;
+        } else if (options == 0) {
+            n = false;
         } else {
             cout << "invalid option";
         }

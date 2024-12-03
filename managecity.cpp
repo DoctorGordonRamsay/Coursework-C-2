@@ -4,35 +4,71 @@
 
 using namespace std;
 
-void managecity::AddCity(city listofcities[], uint8_t &capacity) {
+void managecity::AddCity(city listofcities[], uint8_t &capacity) { //Adds a new city.
 
-    city newCity;
+    if (capacity <= 100) {
+        city newCity;
 
-    cout << "Enter city name: ";
-    cin >> newCity.details[0];
+        cout << "Enter city name: ";
+        cin >> newCity.details[0];
 
-    cout << "Enter country: ";
-    cin >> newCity.details[1];
+        cout << "Enter country: ";
+        cin >> newCity.details[1];
 
-    cout << "Enter county/state: ";
-    cin >> newCity.details[2];
+        cout << "Enter county/state: ";
+        cin >> newCity.details[2];
 
-    cout << "Enter mayor: ";
-    cin >> newCity.details[3];
+        cout << "Enter mayor: ";
+        cin >> newCity.details[3];
 
-    cout << "Enter longitude: ";
-    cin >> newCity.location[0];
+        cout << "Enter longitude: ";
+        cin >> newCity.location[0];
 
-    cout << "Enter latitude: ";
-    cin >> newCity.location[1];
+        cout << "Enter latitude: ";
+        cin >> newCity.location[1];
 
-    listofcities[capacity] = newCity;
-    capacity++;
+        //similarity-checker
 
-    cout << "City added successfully.\n";
+        int similarityscore;
+
+        for (int i; i < capacity; i++) {
+            similarityscore = 0;
+
+            if (newCity.details[0] ==  listofcities[i].details[0]) {
+                similarityscore++;
+            }
+            if (newCity.details[1] ==  listofcities[i].details[1]) {
+                similarityscore++;
+            }
+            if (newCity.details[2] ==  listofcities[i].details[2]) {
+                similarityscore++;
+            }
+            if (newCity.details[3] ==  listofcities[i].details[3]) {
+                similarityscore++;
+            }
+            if (newCity.location[0] ==  listofcities[i].location[0]) {
+                similarityscore++;
+            }
+            if (newCity.location[1] ==  listofcities[i].location[1]) {
+                similarityscore++;
+            }
+        }
+
+        if (similarityscore < 6) {
+            listofcities[capacity] = newCity;
+            capacity++;
+
+            cout << "City added successfully.\n";
+        }else {
+            cout << "You already have this city.\n";
+        }
+    } else {
+        cout << "Max capacity reached, please delete existing cities, before adding new ones.";
+    }
+
 }
 
-void managecity::UpdateCity(city listofcities[], city matchedCities[], uint8_t selection, uint8_t capacity) {
+void managecity::UpdateCity(city listofcities[], city matchedCities[], uint8_t selection, uint8_t capacity) { //Modifies a city.
 
     for (int i; i < capacity;  i++) {
         if (listofcities[i].location[0] == matchedCities[selection].location[0] and listofcities[i].location[1] == matchedCities[selection].location[1]) {
@@ -92,7 +128,7 @@ void managecity::UpdateCity(city listofcities[], city matchedCities[], uint8_t s
 }
 
 
-void managecity::DeleteCity(city listofcities[], city matchedCities[], uint8_t selection, uint8_t capacity) {
+void managecity::DeleteCity(city listofcities[], city matchedCities[], uint8_t selection, uint8_t capacity) { //Deletes a city.
     for (int i; i < capacity;  i++) {
         if (listofcities[i].location[0] == matchedCities[selection].location[0] and listofcities[i].location[1] == matchedCities[selection].location[1]) {
             cout << " \nYour city: " <<  listofcities[i].details[0] << " - " << listofcities[i].details[1] << " - " << listofcities[i].details[2];
@@ -105,6 +141,8 @@ void managecity::DeleteCity(city listofcities[], city matchedCities[], uint8_t s
             --capacity;
 
             cout << "\ncity successfully deleted.\n";
+
+            //replaces last array slot with empty value, as length can't be modified.
 
             listofcities[capacity].details[0] = "";
             listofcities[capacity].details[1] = "";
