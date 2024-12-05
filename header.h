@@ -14,23 +14,24 @@ struct city {
 
 class menu {
 public:
-    static void MainMenu(city listofcities[], uint8_t &capacity);
-    static void DisplayOptions(city listofcities[], city matchedCities[], uint8_t matchedCount, uint8_t selection, uint8_t capacity);
+    static void MainMenu(city listofcities[], int capacity);
+    static void DisplayOptions(city listofcities[], city matchedCities[], uint8_t matchedCount, uint8_t selection, int capacity);
 };
 
 class managecity {
 public:
-    static void AddCity(city listofcities[], uint8_t &capacity);
-    static void UpdateCity(city listofcities[], city matchedCities[], uint8_t selection, uint8_t capacity);
-    static void DeleteCity(city listofcities[], city matchedCities[], uint8_t selection, uint8_t capacity);
+    static void AddCity(city listofcities[], int &capacity);
+    static void UpdateCity(city listofcities[], city matchedCities[], uint8_t selection, int capacity);
+    static void DeleteCity(city listofcities[], city matchedCities[], uint8_t selection, int capacity);
 };
 
 class tools {
 public:
-   static void ListCities(city listofcities[], uint8_t capacity);
-    static void SearchCities(city listofcities[], uint8_t capacity);
-    static void selectCity(city listofcities[], city matchedCities[], uint8_t matchedCount, uint8_t capacity);
-    static void CalculateDistance(city listofcities[], city matchedCities[],  uint8_t selection, uint8_t capacity);
+   static void ListCities(city listofcities[], int capacity);
+    static void SearchCities(city listofcities[], int capacity);
+    static void selectCity(city listofcities[], city matchedCities[], uint8_t matchedCount, int capacity);
+    static void CalculateDistance(city listofcities[], city matchedCities[],  uint8_t selection, int capacity);
+    static void showspecific(city matchedCities[],  uint8_t selection);
 };
 
 #endif

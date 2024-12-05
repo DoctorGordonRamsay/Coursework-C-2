@@ -4,7 +4,7 @@
 
 using namespace std;
 
-void menu::MainMenu(city listofcities[], uint8_t &capacity) { // Displays the main menu.
+void menu::MainMenu(city listofcities[], int capacity) { // Displays the main menu.
     bool x = true;
     while (x == true) {
         int option;
@@ -30,12 +30,12 @@ void menu::MainMenu(city listofcities[], uint8_t &capacity) { // Displays the ma
     }
 }
 
-void menu::DisplayOptions(city listofcities[], city matchedCities[], uint8_t matchedCount, uint8_t selection, uint8_t capacity) { // Displays the menu after the user searched for a city.
+void menu::DisplayOptions(city listofcities[], city matchedCities[], uint8_t matchedCount, uint8_t selection, int capacity) { // Displays the menu after the user searched for a city.
     bool n = true;
     while (n) {
         int options;
         cout << "---------------------------------------------\n";
-        cout << "Select one of the following options \n 1. Update City \n 2. Delete City \n 3. Calculate Distances\n 0. Return to menu\n";
+        cout << "Select one of the following options \n 1. Update City \n 2. Delete City \n 3. Calculate Distances\n 4. Show Specific Details\n 0. Return to menu\n";
 
         cout << " Your city: " <<  matchedCities[selection].details[0] << " - " << matchedCities[selection].details[1] << " - " << matchedCities[selection].details[2];
         cout << "\nEnter your option: ";
@@ -49,6 +49,8 @@ void menu::DisplayOptions(city listofcities[], city matchedCities[], uint8_t mat
         } else if (options == 3) {
             tools::CalculateDistance(listofcities, matchedCities, selection, capacity);
             n = false;
+        } else if (options == 4) {
+            tools::showspecific(matchedCities, selection);
         } else if (options == 0) {
             n = false;
         } else {

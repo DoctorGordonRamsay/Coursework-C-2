@@ -4,9 +4,10 @@
 
 using namespace std;
 
-void managecity::AddCity(city listofcities[], uint8_t &capacity) { //Adds a new city.
+void managecity::AddCity(city listofcities[], int &capacity) { //Adds a new city.
 
-    if (capacity <= 100) {
+
+    if (capacity < 100) {
         city newCity;
 
         cout << "Enter city name: ";
@@ -60,15 +61,15 @@ void managecity::AddCity(city listofcities[], uint8_t &capacity) { //Adds a new 
 
             cout << "City added successfully.\n";
         }else {
-            cout << "You already have this city.\n";
+            cout << "City already exists.\n";
         }
     } else {
-        cout << "Max capacity reached, please delete existing cities, before adding new ones.";
+        cout << "Max capacity reached, please delete existing cities, before adding new ones.\n";
     }
 
 }
 
-void managecity::UpdateCity(city listofcities[], city matchedCities[], uint8_t selection, uint8_t capacity) { //Modifies a city.
+void managecity::UpdateCity(city listofcities[], city matchedCities[], uint8_t selection, int capacity) { //Modifies a city.
 
     for (int i; i < capacity;  i++) {
         if (listofcities[i].location[0] == matchedCities[selection].location[0] and listofcities[i].location[1] == matchedCities[selection].location[1]) {
@@ -128,11 +129,10 @@ void managecity::UpdateCity(city listofcities[], city matchedCities[], uint8_t s
 }
 
 
-void managecity::DeleteCity(city listofcities[], city matchedCities[], uint8_t selection, uint8_t capacity) { //Deletes a city.
+void managecity::DeleteCity(city listofcities[], city matchedCities[], uint8_t selection, int capacity) { //Deletes a city.
     for (int i; i < capacity;  i++) {
         if (listofcities[i].location[0] == matchedCities[selection].location[0] and listofcities[i].location[1] == matchedCities[selection].location[1]) {
             cout << " \nYour city: " <<  listofcities[i].details[0] << " - " << listofcities[i].details[1] << " - " << listofcities[i].details[2];
-            cout << " \nmatchedcity_test: " <<  matchedCities[selection].details[0] << " - " << matchedCities[selection].details[1] << " - " << matchedCities[selection].details[2];
 
             for (int j = i; j < capacity - 1; j++) {
                 listofcities[j] = listofcities[j + 1];
@@ -150,7 +150,6 @@ void managecity::DeleteCity(city listofcities[], city matchedCities[], uint8_t s
             listofcities[capacity].details[3] = "";
             listofcities[capacity].location[0] = 0;
             listofcities[capacity].location[1] = 0;
-
 
 
             break;

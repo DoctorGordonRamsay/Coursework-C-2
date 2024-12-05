@@ -6,7 +6,7 @@
 using namespace std;
 
 
-void tools::ListCities(city listofcities[], uint8_t capacity) { //lists all cities in the array.
+void tools::ListCities(city listofcities[], int capacity) { //lists all cities in the array.
     cout<<"\n";
     cout << "City Name - Country - State/County - Mayor - Longitude - Latitude\n";
     cout << "-----------------------------------------------------------------\n";
@@ -21,7 +21,7 @@ void tools::ListCities(city listofcities[], uint8_t capacity) { //lists all citi
     }
 }
 
-void tools::SearchCities(city listofcities[], uint8_t capacity) { //enables the user to search for a specific city.
+void tools::SearchCities(city listofcities[], int capacity) { //enables the user to search for a specific city.
     string search;
     cout << "Search city by name: ";
     cin >> search;
@@ -41,13 +41,13 @@ void tools::SearchCities(city listofcities[], uint8_t capacity) { //enables the 
     if (found) {
         cout << "Cities found:\n";
         for (int i = 0; i < matchedCount; i++) {
-            cout << "{{"
-                 << matchedCities[i].details[0] << " "
-                 << matchedCities[i].details[1] << " "
-                 << matchedCities[i].details[2] << " "
-                 << matchedCities[i].details[3] << "}{"
-                 << matchedCities[i].location[0] << " "
-                 << matchedCities[i].location[1] << "}}\n";
+            cout << ""
+                 << matchedCities[i].details[0] << " - "
+                 << matchedCities[i].details[1] << " - "
+                 << matchedCities[i].details[2] << " - "
+                 << matchedCities[i].details[3] << " - "
+                 << matchedCities[i].location[0] << " - "
+                 << matchedCities[i].location[1] << "\n";
         }
 
         bool n = true;
@@ -66,7 +66,7 @@ void tools::SearchCities(city listofcities[], uint8_t capacity) { //enables the 
                 n = false;
                 break;
                 case 2:
-                    cout << "Returning home";
+                    cout << "Returning home\n";
                 n = false;
                 break;
                 default:
@@ -78,7 +78,7 @@ void tools::SearchCities(city listofcities[], uint8_t capacity) { //enables the 
     }
 }
 
-void tools::selectCity(city listofcities[], city matchedCities[], uint8_t matchedCount, uint8_t capacity) { //enables the user to select from the list of searched cities.
+void tools::selectCity(city listofcities[], city matchedCities[], uint8_t matchedCount, int capacity) { //enables the user to select from the list of searched cities.
     cout << "select a city:\n";
     for (int i = 0; i < matchedCount; i++) {
         cout << i;
@@ -103,10 +103,10 @@ void tools::selectCity(city listofcities[], city matchedCities[], uint8_t matche
     }
 }
 
-void tools::CalculateDistance(city listofcities[], city matchedCities[],  uint8_t selection, uint8_t capacity) {
+void tools::CalculateDistance(city listofcities[], city matchedCities[],  uint8_t selection, int capacity) {
 
     uint8_t matchedCount = 0;
-    bool found = true;
+    bool found;
     city matchedCities2[100];
 
     double longitude1 = matchedCities[selection].location[0];
@@ -125,6 +125,7 @@ void tools::CalculateDistance(city listofcities[], city matchedCities[],  uint8_
             found = true;
         } else {
             cout << search << " was not found.";
+            found = false;
         }
     }
 
@@ -166,6 +167,8 @@ void tools::CalculateDistance(city listofcities[], city matchedCities[],  uint8_
         double longitude2 = matchedCities2[selection2].location[0];
         double latitude2 = matchedCities2[selection2].location[1];
 
+        //Equation
+
         double distance = acos(sin(latitude1) * sin(latitude2) + cos(latitude1) * cos(latitude2) *cos(longitude1 - longitude2));
 
         distance = (6371 * M_PI * distance) / 180;
@@ -173,5 +176,58 @@ void tools::CalculateDistance(city listofcities[], city matchedCities[],  uint8_
         cout << distance << "\n";
     } else {
         cout << "invalid";
+    }
+}
+
+void tools::showspecific(city matchedCities[],  uint8_t selection) {
+    bool x = true;
+
+    while (x) {
+        cout << "What do you want to display?\n";
+
+        int option;
+
+        cout << " 1. Name of city\n"
+        << " 2. Country\n"
+        << " 3. State/County\n"
+        << " 4. Mayor of city\n"
+        << " 5. Coordinates of city\n"
+        << " 6. longitude\n"
+        << " 7. latitude\n"
+        << " 0. Exit\n";
+
+        cin >> option;
+
+        switch(option) {
+            case 1:
+                cout << "Name of city: " << matchedCities[selection].details[0] << "\n";
+            break;
+            case 2:
+                cout << "country: " << matchedCities[selection].details[1] << "\n";
+            break;
+            case 3:
+                cout << "state/county: " << matchedCities[selection].details[2] << "\n";
+            break;
+            case 4:
+                cout << "mayor: " << matchedCities[selection].details[3] << "\n";
+            break;
+            case 5:
+                cout << "coordinates: longitude: " << matchedCities[selection].location[0] << " latitude: " <<  matchedCities[selection].location[1] << "\n";
+            break;
+            case 6:
+                cout << "longitude: " << matchedCities[selection].location[0] << "\n";
+            break;
+            case 7:
+                cout << "latitude: " << matchedCities[selection].location[1] << "\n";
+            break;
+            case 0:
+                x = false;
+            break;
+            default:
+                cout << "Invalid option.\n";
+            break;
+        }
+
+
     }
 }
