@@ -20,7 +20,7 @@ public:
 
 class managecity {
 public:
-    static void AddCity(city listofcities[], int &capacity);
+    static void AddCity(city listofcities[], int capacity);
     static void UpdateCity(city listofcities[], city matchedCities[], uint8_t selection, int capacity);
     static void DeleteCity(city listofcities[], city matchedCities[], uint8_t selection, int capacity);
 };

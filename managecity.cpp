@@ -4,7 +4,7 @@
 
 using namespace std;
 
-void managecity::AddCity(city listofcities[], int &capacity) { //Adds a new city.
+void managecity::AddCity(city listofcities[], int capacity) { //Adds a new city.
 
 
     if (capacity < 100) {
