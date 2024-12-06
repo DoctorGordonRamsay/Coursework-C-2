@@ -6,7 +6,7 @@
 using namespace std;
 
 
-void tools::ListCities(city listofcities[], int capacity) { //lists all cities in the array.
+void tools::ListCities(city listofcities[], const int capacity) { //lists all cities in the array.
     cout<<"\n";
     cout << "City Name - Country - State/County - Mayor - Longitude - Latitude\n";
     cout << "-----------------------------------------------------------------\n";
@@ -53,24 +53,30 @@ void tools::SearchCities(city listofcities[], int capacity) { //enables the user
         bool n = true;
 
         while (n) {
-            int option;
+            if (matchedCount > 1) {
+                int option;
 
-            cout << "Do you want to edit the list?\n"
-            << "select 1 to proceed\n"
-            << "select 2 to return to menu\n";
-            cin >> option;
+                cout << "Do you want to edit the list?\n"
+                << "select 1 to proceed\n"
+                << "select 2 to return to menu\n";
+                cin >> option;
 
-            switch(option){
-                case 1:
-                    tools::selectCity(listofcities, matchedCities, matchedCount, capacity);
+                switch(option){
+                    case 1:
+                        tools::selectCity(listofcities, matchedCities, matchedCount, capacity);
+                    n = false;
+                    break;
+                    case 2:
+                        cout << "Returning home\n";
+                    n = false;
+                    break;
+                    default:
+                        cout << "invalid option";
+                }
+            } else {
                 n = false;
-                break;
-                case 2:
-                    cout << "Returning home\n";
-                n = false;
-                break;
-                default:
-                    cout << "invalid option";
+                int selection = 0;
+                menu::DisplayOptions(listofcities, matchedCities, selection, capacity);
             }
         }
     } else {
@@ -78,7 +84,7 @@ void tools::SearchCities(city listofcities[], int capacity) { //enables the user
     }
 }
 
-void tools::selectCity(city listofcities[], city matchedCities[], uint8_t matchedCount, int capacity) { //enables the user to select from the list of searched cities.
+void tools::selectCity(city listofcities[], city matchedCities[], const uint8_t matchedCount, int capacity) { //enables the user to select from the list of searched cities.
     cout << "select a city:\n";
     for (int i = 0; i < matchedCount; i++) {
         cout << i;
@@ -97,13 +103,13 @@ void tools::selectCity(city listofcities[], city matchedCities[], uint8_t matche
 
     if (selection >= 0 && selection < matchedCount) {
         cout << "You selected: " << matchedCities[selection].details[0] << " - " << matchedCities[selection].details[1] << " - " << matchedCities[selection].details[2] << endl;
-        menu::DisplayOptions(listofcities, matchedCities,matchedCount, selection, capacity);
+        menu::DisplayOptions(listofcities, matchedCities, selection, capacity);
     } else {
         cout << "Invalid option.\n";
     }
 }
 
-void tools::CalculateDistance(city listofcities[], city matchedCities[],  uint8_t selection, int capacity) {
+void tools::CalculateDistance(city listofcities[], city matchedCities[],  const uint8_t selection, const int capacity) {
 
     uint8_t matchedCount = 0;
     bool found;
@@ -179,7 +185,7 @@ void tools::CalculateDistance(city listofcities[], city matchedCities[],  uint8_
     }
 }
 
-void tools::showspecific(city matchedCities[],  uint8_t selection) {
+void tools::showspecific(city matchedCities[],  const uint8_t selection) {
     bool x = true;
 
     while (x) {
@@ -227,7 +233,29 @@ void tools::showspecific(city matchedCities[],  uint8_t selection) {
                 cout << "Invalid option.\n";
             break;
         }
-
-
     }
 }
+
+void tools::SortCity(city listofcities[], const int capacity) {
+    int nonZeroCount = 0;
+
+    for (int i = 0; i < capacity; i++) {
+        if (listofcities[i].details[0][0] != '0') {
+            city temp = listofcities[nonZeroCount];
+            listofcities[nonZeroCount] = listofcities[i];
+            listofcities[i] = temp;
+            nonZeroCount++;
+        }
+    }
+
+    for (int i = 0; i < nonZeroCount - 1; i++) {
+        for (int x = 0; x < nonZeroCount - i - 1; x++) {
+            if (listofcities[x].details[0][0] > listofcities[x + 1].details[0][0]) {
+                city temp = listofcities[x];
+                listofcities[x] = listofcities[x + 1];
+                listofcities[x + 1] = temp;
+            }
+        }
+    }
+}
+

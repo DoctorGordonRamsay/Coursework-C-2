@@ -8,16 +8,14 @@ void menu::MainMenu(city listofcities[], int capacity) { // Displays the main me
     bool x = true;
     while (x == true) {
         int option;
-        cout << "-----------------------------------------------\n";
+        cout << "\n-----------------------------------------------\n";
         cout << "Select one of the following options \n 1. Add New City \n 2. Search City \n 3. Display full list. \n 0. End Program. \n Select your option: ";
         cin >> option;
         if (option == 1) {
             cout << "Adding new city\n";
-
             managecity::AddCity(listofcities, capacity);
-
-            } else if (option == 2) {
-                tools::SearchCities(listofcities, capacity);
+        } else if (option == 2) {
+            tools::SearchCities(listofcities, capacity);
         } else if (option == 3) {
             cout << "You currently have " << capacity << " cities.";
             tools::ListCities(listofcities, capacity);
@@ -30,11 +28,11 @@ void menu::MainMenu(city listofcities[], int capacity) { // Displays the main me
     }
 }
 
-void menu::DisplayOptions(city listofcities[], city matchedCities[], uint8_t matchedCount, uint8_t selection, int capacity) { // Displays the menu after the user searched for a city.
+void menu::DisplayOptions(city listofcities[], city matchedCities[], const uint8_t selection, int &capacity) { // Displays the menu after the user searched for a city.
     bool n = true;
     while (n) {
         int options;
-        cout << "---------------------------------------------\n";
+        cout << "\n---------------------------------------------\n";
         cout << "Select one of the following options \n 1. Update City \n 2. Delete City \n 3. Calculate Distances\n 4. Show Specific Details\n 0. Return to menu\n";
 
         cout << " Your city: " <<  matchedCities[selection].details[0] << " - " << matchedCities[selection].details[1] << " - " << matchedCities[selection].details[2];

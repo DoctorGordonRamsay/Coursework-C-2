@@ -1,19 +1,41 @@
 #include <cstdint>
-
+#include <fstream>
 #include "header.h"
 
-int main()
-{
-    uint8_t capacity = 5;
-    city listofcities[100] = {  // Pre-existing list of 5 cities
-        {{"New-York", "USA", "New-York", "Eric-Adams"}, {40.7128, -74.0060}}, // City 1
-        {{"London", "UK", "Greater-London", "Sadiq-Khan"}, {51.5074, -0.1278}}, // City 2
-        {{"Tokyo", "Japan", "Tokyo", "Yurik-Koike"}, {35.6762, 139.6503}}, // City 3
-        {{"Berlin", "France", "Île-de-France", "Anne-Hidalgo"}, {48.8566, 2.3522}}, // City 4
-        {{"Berlin", "Germany", "Berlin", "Franziska-Giffey"}, {52.52, 13.4050}} // City 5
-    };
+int main() {
+
+    //opens the file
+    ifstream myFile("listofcities.txt");
+
+    //checks if file was successfully added
+    if (myFile.fail()) {
+        cout << "Could not detect file";
+    } else {
+        cout << "File successfully added";
+    }
+
+    //Declares the array and capacity
+    city listofcities[100];
+    uint8_t capacity = 0;
+
+    // Read city data from the file into the listofcities array
+    while (myFile >> listofcities[capacity].details[0]
+                    >> listofcities[capacity].details[1]
+                    >> listofcities[capacity].details[2]
+                    >> listofcities[capacity].details[3]
+                    >> listofcities[capacity].location[0]
+                    >> listofcities[capacity].location[1]) {
+        capacity++;
+
+        //checks for capacity
+        if (capacity >= 100) {
+            cout << "Maximum capacity of 100 cities reached." << endl;
+            break;
+        }
+    }
+    tools::SortCity(listofcities, capacity);
     menu::MainMenu(listofcities, capacity);
 
-
+    myFile.close();
     return 0;
 }
